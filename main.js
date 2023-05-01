@@ -1,43 +1,55 @@
-let choices = ["rock", "paper", "scissors"];
+const getUserInput = userInput => {
+    userInput = userInput.toLowerCase();
+    if (userInput === "rock" || userInput === "scissors" || userInput === "paper"){
+        return userInput;
+    } else {
+        console.log("Error, please enter: rock, paper, or scissors.");
+    }
+};
 
+const getComputerChoice = () => {
+    const randomNumber = Math.floor(Math.random() * 3)
+    switch(randomNumber){
+        case 0: 
+            return "rock";
+        case 1:
+            return "paper";
+        case 2:
+            return "scissors";
+    }
+};
 
-var computerChoice = (function getComputerChoice(){
-    return choices[Math.floor(Math.random() * choices.length)];
-})();
-
-
-function playerChoice(choice){
-    switch(choice){
-        case "rock":
-            if (choice === "rock" && computerChoice ==="scissors"){
-                return "You Win! Your " + choice + " beats " + computerChoice + " ."
-            } else if (choice === "rock" && computerChoice === "paper"){
-                return "You Lose! Your " + choice + " was beat by " + computerChoice + " ."
-            } else{
-                return "Tie Game! Your " + choice + " ties with " + computerChoice + " ."
-            }
-            break;
-        case "scissors":
-            if (choice == "scissors" && computerChoice == "paper"){
-                return "You Win! Your " + choice + " beats " + computerChoice + "."
-            } else if (choice == "scissors" && computerChoice == "rock"){
-                return "You Lose! Your " + choice + " was beat by " + computerChoice + "."
-            } else{
-                return "Tie Game!"
-            }
-        case "paper":
-            if (choice == "paper" && computerChoice == "rock"){
-                return "You Win! Your " + choice + " beats " + computerChoice + "."
-            } else if (choice == "paper" && computerChoice == "scissors"){
-                return "You Lose! Your " + choice + " was beat by " + computerChoice + "."
-            } else{
-                return "Tie Game!"
-            }
-
+const decideWinner = (userChoice, computerChoice) => {
+   if (userChoice === computerChoice){
+    return "Tie game!"
+   }
+    if (userChoice === "rock"){
+        if (computerChoice === "paper"){
+            return "You lose! Paper beats rock!";
+        } else {
+            return "You win! Rock beats scissors!";
+        }
+    }
+    if (userChoice === "paper"){
+        if (computerChoice === "scissors"){
+            return "You lose! Scissors beats paper!";
+        } else {
+            return "You win! Paper beats rock!";
+        }
+    }
+    if (userChoice === "scissors"){
+        if (computerChoice === "rock"){
+            return "You lose! Rock beats scissors!";
+        } else {
+            return "You win! Scissors beats paper!";
+        }
     }
 }
 
-
-function playGame(){
-    
-};
+const playGame = () => {
+    const userChoice = getUserInput("paper");
+    const computerChoice = getComputerChoice();
+    console.log("You threw: " + userChoice);
+    console.log("The computer threw: " + computerChoice);
+    console.log(decideWinner(userChoice, computerChoice));
+}
